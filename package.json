@@ -1,9 +1,15 @@
 {
-  "name": "secure-actions-webhook",
-  "version": "0.1.2",
+  "name": "secure-webhook",
+  "version": "0.1.3",
   "description": "Github Actions secure webhook",
   "main": "main.js",
+  "scripts": {
+    "dev": "node -r dotenv/config main.js"
+  },
   "dependencies": {
     "request": "2.88.0"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
   }
 }

@@ -46,7 +46,8 @@ request(
     json: true,
     body: data,
     headers: {
-      "X-Hub-Signature": signature
+      "X-Hub-Signature": signature,
+      "X-Hub-SHA": process.env.GITHUB_SHA
     }
   },
   (error, response, body) => {
