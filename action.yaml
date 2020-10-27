@@ -1,0 +1,7 @@
+name: 'Secure Webhook'
+description: 'Send a SHA256 digest with webhook request'
+inputs:
+outputs:
+runs:
+  using: 'docker'
+  image: 'Dockerfile'

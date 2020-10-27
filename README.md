@@ -1,4 +1,4 @@
-# secure-actions-webhook
+# Secure-Webhook
 
 Securely call CD servers / notification services after your Action finishes
 
@@ -12,7 +12,7 @@ Sending a string:
 
 ```yaml
 - name: Webhook
-  uses: navied/secure-actions-webhook@0.1.0
+  uses: navied/secure-actions-webhook@0.1.3
   env:
     REQUEST_URI: ${{ secrets.REQUEST_URI }}
     REQUEST_DATA: "something_interesting"
@@ -23,7 +23,7 @@ Sending a json string:
 
 ```yaml
 - name: Webhook
-  uses: navied/secure-actions-webhook@0.1.0
+  uses: navied/secure-actions-webhook@0.1.3
   env:
     REQUEST_URI: ${{ secrets.REQUEST_URI }}
     REQUEST_DATA: '{ "something": "interesting" }'
