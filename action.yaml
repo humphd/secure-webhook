@@ -1,5 +1,8 @@
 name: 'Secure Webhook'
 description: 'Send a SHA256 digest with webhook request'
+branding:
+  icon: 'alert-octagon'  
+  color: 'green'
 inputs:
 outputs:
 runs:
