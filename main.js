@@ -14,10 +14,10 @@ if (hmacSecret.length < 32) {
 }
 
 const createHmacSignature = body => {
-  const hmac = crypto.createHmac("sha1", hmacSecret);
+  const hmac = crypto.createHmac("sha256", hmacSecret);
   const bodySignature = hmac.update(JSON.stringify(body)).digest("hex");
 
-  return `sha1=${bodySignature}`;
+  return `${bodySignature}`;
 };
 
 function isJsonString(str) {
