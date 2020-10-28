@@ -4,9 +4,11 @@
   "description": "Github Actions secure webhook",
   "main": "main.js",
   "scripts": {
-    "dev": "node -r dotenv/config main.js"
+    "dev": "node -r dotenv/config index.js",
+    "build": "ncc build src/index.js -o dist"
   },
   "dependencies": {
+    "@vercel/ncc": "^0.24.1",
     "axios": "^0.21.0"
   },
   "devDependencies": {
