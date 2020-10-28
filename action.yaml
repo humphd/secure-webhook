@@ -5,4 +5,4 @@ branding:
   color: 'green'
 runs:
   using: 'node12'
-  image: 'main.js'
+  main: 'main.js'
