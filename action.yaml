@@ -3,6 +3,19 @@ description: 'Send a SHA256 digest with webhook request'
 branding:
   icon: 'alert-octagon'  
   color: 'green'
+inputs:
+  url:
+    description: 'Request URL'
+    required: true
+  hmacSecret:
+    description: 'HMAC Secret'
+    required: true
+  data:
+    description: 'Request Body'
+    required: false
+outputs:
+  response:
+      description: 'HTTP Response'
 runs:
   using: 'node12'
   main: 'dist/index.js'

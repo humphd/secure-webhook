@@ -4,7 +4,7 @@
   "description": "Github Actions secure webhook",
   "main": "main.js",
   "scripts": {
-    "dev": "node -r dotenv/config index.js",
+    "dev": "node -r dotenv/config src/index.js",
     "build": "ncc build src/index.js -o dist"
   },
   "dependencies": {
@@ -12,6 +12,7 @@
     "axios": "^0.21.0"
   },
   "devDependencies": {
+    "@actions/core": "^1.2.6",
     "dotenv": "^8.2.0"
   }
 }

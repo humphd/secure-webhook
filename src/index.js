@@ -1,16 +1,16 @@
 const axios = require("axios");
 const crypto = require("crypto");
+const core = require('@actions/core');
 
-const hmacSecret = process.env.HMAC_SECRET;
+const hmacSecret = core.getInput('hmacSecret');
+
 if (!hmacSecret || hmacSecret === "" || hmacSecret.trim() === "") {
-  console.warn(
-    "The hmac secret seems empty. This doesn't seem like what you want."
-  );
+  core.setFailed("The hmac secret seems empty. This doesn't seem like what you want.");
+  return;
 }
 if (hmacSecret.length < 32) {
-  console.warn(
-    "The hmac secret seems week. You should use at least 32 secure random hex chars."
-  );
+  core.setFailed("The hmac secret seems week. You should use at least 32 secure random hex chars.");
+  return;
 }
 
 const createHmacSignature = body => {
@@ -29,26 +29,25 @@ function isJsonString(str) {
   }
 }
 
-const uri = process.env.REQUEST_URI;
+const url = core.getInput('url');
+const dataInput = core.getInput('data');
+
 const data = {
-  data: isJsonString(process.env.REQUEST_DATA)
-    ? JSON.parse(process.env.REQUEST_DATA)
-    : process.env.REQUEST_DATA
+  data: isJsonString(dataInput)
+    ? JSON.parse(dataInput)
+    : dataInput
 };
 
 
 const signature = createHmacSignature(data);
 
-axios.post(uri, data, {
+axios.post(url, data, {
   headers: {
     "X-Hub-Signature": signature,
     "X-Hub-SHA": process.env.GITHUB_SHA
   }
-}).then(function (response) {
-  process.exit();
+}).then(function (res) {
+  core.setOutput(`Request sucessful response: ${res.data}`);
 }).catch(function (error) {
-  console.error(`Request failed with status code ${error.response.status}!`);
-  console.error(error.response.data);
-
-  process.exit(1);
+  core.setFailed(`Request failed with status code ${error.response.status}!`);
 });

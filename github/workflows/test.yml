@@ -1,0 +1,19 @@
+name: Test
+
+on: [push]
+
+jobs:
+  request:
+    runs-on: ubuntu-latest
+    name: A job to be testing
+    steps:
+      # To use this repository's private action,
+      # you must check out the repository
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Request Postment Echo POST
+        uses: ./
+        with:
+          url: 'https://postman-echo.com/post'
+          hmacSecret: '9aa66a8c37255ae2b71d82b1e4bffdb1'
+          data: '{ "key": "value" }'
