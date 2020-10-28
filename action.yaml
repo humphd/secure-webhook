@@ -4,5 +4,5 @@ branding:
   icon: 'alert-octagon'  
   color: 'green'
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: 'node12'
+  image: 'main.js'

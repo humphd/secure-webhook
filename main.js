@@ -1,4 +1,4 @@
-const request = require("request");
+const axios = require("axios");
 const crypto = require("crypto");
 
 const hmacSecret = process.env.HMAC_SECRET;
@@ -36,30 +36,19 @@ const data = {
     : process.env.REQUEST_DATA
 };
 
+
 const signature = createHmacSignature(data);
 
-request(
-  {
-    method: "POST",
-    uri: uri,
-
-    json: true,
-    body: data,
-    headers: {
-      "X-Hub-Signature": signature,
-      "X-Hub-SHA": process.env.GITHUB_SHA
-    }
-  },
-  (error, response, body) => {
-    if (error || response.statusCode < 200 || response.statusCode > 299) {
-      // Something went wrong
-      console.error(`Request failed with status code ${response.statusCode}!`);
-      console.error(response.body);
-
-      process.exit(1);
-    } else {
-      // Success
-      process.exit();
-    }
+axios.post(uri, data, {
+  headers: {
+    "X-Hub-Signature": signature,
+    "X-Hub-SHA": process.env.GITHUB_SHA
   }
-);
+}).then(function (response) {
+  process.exit();
+}).catch(function (error) {
+  console.error(`Request failed with status code ${error.response.status}!`);
+  console.error(error.response.data);
+
+  process.exit(1);
+});
