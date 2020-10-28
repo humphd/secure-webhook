@@ -47,7 +47,7 @@ axios.post(url, data, {
     "X-Hub-SHA": process.env.GITHUB_SHA
   }
 }).then(function (res) {
-  core.info(`Request sucessful response: ${res.response.data}`)
+  core.info(`Request sucessful response`)
 }).catch(function (error) {
-  core.setFailed(`Request failed with status code ${error.response.status}!`);
+  core.setFailed(`Request failed with status code ${error.response.status} !`);
 });
