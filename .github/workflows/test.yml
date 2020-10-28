@@ -5,7 +5,7 @@ on: [push]
 jobs:
   request:
     runs-on: ubuntu-latest
-    name: A job to be testing
+    name: Run echo tests
     steps:
       # To use this repository's private action,
       # you must check out the repository
