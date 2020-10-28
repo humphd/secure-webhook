@@ -2977,11 +2977,7 @@ function isJsonString(str) {
 const url = core.getInput('url');
 const dataInput = core.getInput('data');
 
-const data = {
-  data: isJsonString(dataInput)
-    ? JSON.parse(dataInput)
-    : dataInput
-};
+const data = isJsonString(dataInput) ? JSON.parse(dataInput) : dataInput;
 
 
 const signature = createHmacSignature(data);
