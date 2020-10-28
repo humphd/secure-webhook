@@ -2946,7 +2946,6 @@ module.exports.wrap = wrap;
 const axios = __webpack_require__(545);
 const crypto = __webpack_require__(417);
 const core = __webpack_require__(186);
-
 const hmacSecret = core.getInput('hmacSecret');
 
 if (!hmacSecret || hmacSecret === "" || hmacSecret.trim() === "") {
@@ -2960,9 +2959,11 @@ if (hmacSecret.length < 32) {
 
 const createHmacSignature = body => {
   const hmac = crypto.createHmac("sha256", hmacSecret);
-  const bodySignature = hmac.update(JSON.stringify(body)).digest("hex");
-
-  return `${bodySignature}`;
+  if (body === "") {
+    return hmac.digest("hex");
+  } else {
+    return hmac.update(JSON.stringify(body)).digest("hex");
+  }
 };
 
 function isJsonString(str) {
@@ -2976,10 +2977,7 @@ function isJsonString(str) {
 
 const url = core.getInput('url');
 const dataInput = core.getInput('data');
-
 const data = isJsonString(dataInput) ? JSON.parse(dataInput) : dataInput;
-
-
 const signature = createHmacSignature(data);
 
 axios.post(url, data, {
@@ -2987,10 +2985,10 @@ axios.post(url, data, {
     "X-Hub-Signature": signature,
     "X-Hub-SHA": process.env.GITHUB_SHA
   }
-}).then(function (res) {
+}).then(function () {
   core.info(`Webhook sent sucessfully`)
 }).catch(function (error) {
-  core.setFailed(`Request failed with status code ${error.response.status}!`);
+  core.setFailed(`Request failed with status code ${error.response.status}`);
 });
 
 /***/ }),
