@@ -38,6 +38,7 @@ const signature = createHmacSignature(data);
 axios.post(url, data, {
   headers: {
     "X-Hub-Signature": signature,
+    "X-Hub-Signature-256": "sha256=" + signature,
     "X-Hub-SHA": process.env.GITHUB_SHA
   }
 }).then(function () {
