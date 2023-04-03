@@ -35,12 +35,13 @@ const dataInput = core.getInput('data');
 const data = isJsonString(dataInput) ? JSON.parse(dataInput) : dataInput;
 const signature = createHmacSignature(data);
 
-axios.post(url, data, {
+axios.post(url, {
   headers: {
     "X-Hub-Signature": signature,
     "X-Hub-Signature-256": "sha256=" + signature,
     "X-Hub-SHA": process.env.GITHUB_SHA
-  }
+  },
+  data
 }).then(function () {
   core.info(`Webhook sent sucessfully`)
 }).catch(function (error) {
